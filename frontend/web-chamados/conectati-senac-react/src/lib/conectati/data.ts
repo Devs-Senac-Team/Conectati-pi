@@ -67,8 +67,8 @@ export const CHAMADOS: Chamado[] = [
   },
   {
     n: "003",
-    solicitante: "João Suporte",
-    perfil: "Suporte TI",
+    solicitante: "João Silva",
+    perfil: "Instrutor",
     categoria: "Internet/Rede",
     sala: "Lab 01",
     prioridade: "Urgente",
@@ -265,20 +265,6 @@ export const USUARIOS_BASE: Usuario[] = [
     nome: "Ana Coordenação",
     email: "ana.coord@senacdf.com.br",
     perfil: "Coordenação",
-    unidade: "Senac Taguatinga Sul - Taguatinga/DF",
-  },
-  {
-    id: "u5",
-    nome: "João Suporte",
-    email: "joao.ti@senacdf.com.br",
-    perfil: "Suporte TI",
-    unidade: "Senac Taguatinga Sul - Taguatinga/DF",
-  },
-  {
-    id: "u6",
-    nome: "Mariana Admin",
-    email: "admin@senacdf.com.br",
-    perfil: "Administrador",
     unidade: "Senac Taguatinga Sul - Taguatinga/DF",
   },
 ];

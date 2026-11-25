@@ -138,7 +138,7 @@ function Home() {
         </div>
         <div className="feature reveal visible">
           <h3>Perfis</h3>
-          <p>Instrutor, Suporte TI, Coordenação e Administrador — permissões dedicadas.</p>
+          <p>Instrutor e Coordenação — permissões dedicadas.</p>
         </div>
       </section>
       <footer className="landing-footer">

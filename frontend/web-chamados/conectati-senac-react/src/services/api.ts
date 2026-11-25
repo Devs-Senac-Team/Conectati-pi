@@ -32,7 +32,6 @@ export class ApiError extends Error {
 export async function api<T>(path: string, init: RequestInit = {}): Promise<T> {
   const response = await fetch(apiUrl(path), {
     ...init,
-    credentials: "include",
     headers: { "Content-Type": "application/json", ...getAuthHeader(), ...init.headers },
   });
   if (response.status === 204) return undefined as T;

@@ -26,8 +26,8 @@ const CHAMADOS = [
   },
   {
     n: "003",
-    solicitante: "João Suporte",
-    perfil: "Suporte TI",
+    solicitante: "João Silva",
+    perfil: "Instrutor",
     categoria: "Internet/Rede",
     sala: "Lab 01",
     prioridade: "Urgente",
@@ -229,20 +229,6 @@ const USUARIOS_BASE = [
     perfil: "Coordenação",
     unidade: "Senac Taguatinga Sul - Taguatinga/DF",
   },
-  {
-    id: "u5",
-    nome: "João Suporte",
-    email: "joao.ti@senacdf.com.br",
-    perfil: "Suporte TI",
-    unidade: "Senac Taguatinga Sul - Taguatinga/DF",
-  },
-  {
-    id: "u6",
-    nome: "Mariana Admin",
-    email: "admin@senacdf.com.br",
-    perfil: "Administrador",
-    unidade: "Senac Taguatinga Sul - Taguatinga/DF",
-  },
 ];
 
 const UNIDADES_BASE = [
@@ -365,14 +351,6 @@ const PERMISSOES = {
     cor: "#2b8cff",
     descricao: "Solicita salas e abre chamados.",
   },
-  "Suporte TI": {
-    menu: ["home", "dashboard", "chamados", "equipamentos", "relatorios"],
-    verChamados: "todos",
-    acoes: true,
-    novoChamado: false,
-    cor: "#ff8a3d",
-    descricao: "Atende chamados e gerencia equipamentos.",
-  },
   Coordenação: {
     menu: ["home", "dashboard", "chamados", "equipamentos", "relatorios"],
     verChamados: "todos",
@@ -380,14 +358,6 @@ const PERMISSOES = {
     novoChamado: false,
     cor: "#8b5cf6",
     descricao: "Acompanha indicadores e chamados.",
-  },
-  Administrador: {
-    menu: ["home", "dashboard", "equipamentos", "usuarios", "unidades"],
-    verChamados: "todos",
-    acoes: true,
-    novoChamado: false,
-    cor: "#16a34a",
-    descricao: "Controle total: usuários, unidades e equipamentos.",
   },
 };
 function getPerfil() {

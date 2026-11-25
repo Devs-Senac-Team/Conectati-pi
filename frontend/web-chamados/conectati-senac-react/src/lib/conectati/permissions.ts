@@ -22,25 +22,7 @@ export type Perm = {
   descricao: string;
 };
 
-export const PERMISSOES: Record<PerfilKey, Perm> = {
-  ADMINISTRADOR: {
-    menu: [
-      "home",
-      "dashboard",
-      "chamados",
-      "novo-chamado",
-      "equipamentos",
-      "usuarios",
-      "relatorios",
-      "mapa-salas",
-      "unidades",
-    ],
-    verChamados: "todos",
-    acoes: false,
-    novoChamado: true,
-    cor: "#16a34a",
-    descricao: "Acesso administrativo.",
-  },
+export const PERMISSOES: Partial<Record<PerfilKey, Perm>> = {
   INSTRUTOR: {
     menu: ["home", "chamados", "novo-chamado", "minhas-turmas"],
     verChamados: "proprios",
@@ -57,14 +39,6 @@ export const PERMISSOES: Record<PerfilKey, Perm> = {
     cor: "#7c3aed",
     descricao: "Acompanha solicitacoes e equipamentos.",
   },
-  TECNICO: {
-    menu: ["home", "dashboard", "chamados", "equipamentos", "relatorios", "mapa-salas"],
-    verChamados: "todos",
-    acoes: true,
-    novoChamado: false,
-    cor: "#ff8a3d",
-    descricao: "Atende chamados e registra relatorios.",
-  },
 };
 
 export function getPerfil(): PerfilKey | "" {
@@ -72,7 +46,7 @@ export function getPerfil(): PerfilKey | "" {
 }
 export function getPermissoes(): Perm | null {
   const perfil = getPerfil();
-  return perfil ? PERMISSOES[perfil] : null;
+  return perfil ? (PERMISSOES[perfil] ?? null) : null;
 }
 export function paginaInicialPerfil(perm: Perm): MenuKey {
   return perm.menu.find((item) => item !== "home") || "dashboard";

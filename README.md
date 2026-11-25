@@ -42,7 +42,7 @@ O Docker ativa o perfil `production`. Configure no serviço da API:
 
 - `DB_URL`, `DB_USERNAME` e `DB_PASSWORD`: conexão PostgreSQL.
 - `APP_AUTH_TOKEN_SECRET`: segredo privado com pelo menos 32 bytes. A aplicação falha ao iniciar se estiver ausente, curto ou igual ao segredo público de desenvolvimento.
-- `APP_CORS_ALLOWED_ORIGINS`: origens exatas, separadas por vírgula e sem curingas, por exemplo `https://seu-front.vercel.app`.
+- `CORS_ORIGINS`: origens exatas, separadas por vírgula e sem curingas. O padrão inclui `https://conectati-pi-conectati-senac-react.vercel.app`, `http://localhost:3000` e `http://localhost:5173`. No Render, defina esta variável somente se quiser substituir a lista padrão; se existir uma configuração antiga chamada `APP_CORS_ALLOWED_ORIGINS`, ela pode ser removida.
 - `APP_DEMO_DATA_ENABLED` (opcional, padrão `false`): habilita os dados e usuários de demonstração.
 - `SWAGGER_ENABLED` (opcional, padrão `false`): habilita Swagger/OpenAPI.
 - `SERVER_SERVLET_CONTEXT_PATH` (opcional): prefixo da API, como `/api`; vazio por padrão.

@@ -135,9 +135,7 @@ function Usuarios() {
                     setForm({ ...form, tipo: event.target.value as TipoUsuario })
                   }
                 >
-                  <option value="ADMINISTRADOR">Administrador</option>
                   <option value="INSTRUTOR">Instrutor</option>
-                  <option value="TECNICO">Tecnico</option>
                   <option value="COORDENADOR">Coordenador</option>
                 </select>
               </label>

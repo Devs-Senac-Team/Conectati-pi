@@ -24,7 +24,7 @@ public class CorsConfig {
         if (allowedOrigins == null || allowedOrigins.isBlank()
                 || Arrays.stream(allowedOrigins.split(",")).map(String::trim)
                         .anyMatch(origin -> origin.isEmpty() || origin.contains("*"))) {
-            throw new IllegalStateException("APP_CORS_ALLOWED_ORIGINS deve conter origens explícitas, sem curinga.");
+            throw new IllegalStateException("CORS_ORIGINS deve conter origens explícitas, sem curinga.");
         }
     }
 
@@ -48,8 +48,7 @@ public class CorsConfig {
                                 "PATCH",
                                 "OPTIONS"
                         )
-                        .allowedHeaders("*")
-                        .allowCredentials(true);
+                        .allowedHeaders("Content-Type", "Authorization");
             }
         };
     }
