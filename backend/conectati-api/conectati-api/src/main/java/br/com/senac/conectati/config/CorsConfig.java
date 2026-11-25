@@ -2,54 +2,50 @@ package br.com.senac.conectati.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.http.HttpHeaders;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
 
-import java.util.Arrays;
-import jakarta.annotation.PostConstruct;
+import jakarta.servlet.http.HttpServletRequest;
+import java.util.List;
+import java.util.regex.Pattern;
 
-/**
- * Configuração global de CORS.
- * Permite que aplicações front-end consumam a API.
- */
+/** Configuração global de CORS para o frontend e previews da Vercel. */
 @Configuration
 public class CorsConfig {
 
-    @Value("${app.cors.allowed-origins}")
-    private String allowedOrigins;
+    private static final Pattern VERCEL_PREVIEW_ORIGIN = Pattern.compile(
+            "^https://conectati-pi-conectati-senac-react-[a-z0-9]+(-[a-z0-9-]+)?\\.vercel\\.app$");
+    private static final List<String> ALLOWED_ORIGINS = List.of(
+            "https://conectati-pi-conectati-senac-react.vercel.app",
+            "http://localhost:3000",
+            "http://localhost:5173");
 
-    @PostConstruct
-    void validarOrigens() {
-        if (allowedOrigins == null || allowedOrigins.isBlank()
-                || Arrays.stream(allowedOrigins.split(",")).map(String::trim)
-                        .anyMatch(origin -> origin.isEmpty() || origin.contains("*"))) {
-            throw new IllegalStateException("CORS_ORIGINS deve conter origens explícitas, sem curinga.");
-        }
+    private boolean isAllowedOrigin(String origin) {
+        return origin == null
+                || ALLOWED_ORIGINS.contains(origin)
+                || VERCEL_PREVIEW_ORIGIN.matcher(origin).matches();
     }
 
     @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer() {
+    public CorsConfigurationSource corsConfigurationSource() {
+        return request -> corsConfigurationFor(request);
+    }
 
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
+    private CorsConfiguration corsConfigurationFor(HttpServletRequest request) {
+        String origin = request.getHeader(HttpHeaders.ORIGIN);
+        CorsConfiguration configuration = new CorsConfiguration();
 
-                registry.addMapping("/**")
-                        .allowedOrigins(Arrays.stream(allowedOrigins.split(","))
-                                .map(String::trim)
-                                .filter(origin -> !origin.isEmpty())
-                                .toArray(String[]::new))
-                        .allowedMethods(
-                                "GET",
-                                "POST",
-                                "PUT",
-                                "DELETE",
-                                "PATCH",
-                                "OPTIONS"
-                        )
-                        .allowedHeaders("Content-Type", "Authorization");
-            }
-        };
+        if (origin != null && isAllowedOrigin(origin)) {
+            configuration.setAllowedOriginPatterns(List.of(origin));
+        } else if (origin != null) {
+            configuration.setAllowedOriginPatterns(List.of());
+        }
+
+        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
+        configuration.setAllowedHeaders(List.of("Content-Type", "Authorization"));
+        configuration.setAllowCredentials(false);
+        configuration.setMaxAge(3600L);
+        return configuration;
     }
 }
